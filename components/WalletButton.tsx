@@ -4,6 +4,7 @@ import { LogOut, Wallet, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import clsx from "clsx";
+import type { Connector } from "wagmi";
 
 const DISCONNECT_KEY = "dreamexchange.manualDisconnect";
 
@@ -21,8 +22,29 @@ function getConnectorLabel(name: string) {
   return name;
 }
 
+function isCoinbaseConnector(connector: Connector) {
+  return (
+    connector.type === "coinbaseWallet" ||
+    connector.name.toLowerCase().includes("coinbase")
+  );
+}
+
+async function hasInjectedProvider(connector: Connector) {
+  if (typeof window === "undefined") return false;
+  if (isCoinbaseConnector(connector)) return true;
+
+  try {
+    return Boolean(await connector.getProvider());
+  } catch {
+    return false;
+  }
+}
+
 export function WalletButton() {
   const [open, setOpen] = useState(false);
+  const [availableConnectorIds, setAvailableConnectorIds] = useState<Set<string>>(
+    () => new Set(),
+  );
   const { address, isConnected } = useAccount();
   const { connectors, connect, status, error } = useConnect();
   const { disconnect } = useDisconnect();
@@ -30,11 +52,40 @@ export function WalletButton() {
   const visibleConnectors = useMemo(() => {
     const seen = new Set<string>();
     return connectors.filter((connector) => {
+      if (!availableConnectorIds.has(connector.uid)) return false;
       const label = getConnectorLabel(connector.name);
       if (seen.has(label)) return false;
       seen.add(label);
       return true;
     });
+  }, [availableConnectorIds, connectors]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function resolveAvailableConnectors() {
+      const results = await Promise.all(
+        connectors.map(async (connector) => ({
+          connector,
+          available: await hasInjectedProvider(connector),
+        })),
+      );
+
+      if (cancelled) return;
+      setAvailableConnectorIds(
+        new Set(
+          results
+            .filter(({ available }) => available)
+            .map(({ connector }) => connector.uid),
+        ),
+      );
+    }
+
+    resolveAvailableConnectors();
+
+    return () => {
+      cancelled = true;
+    };
   }, [connectors]);
 
   useEffect(() => {
@@ -52,14 +103,16 @@ export function WalletButton() {
 
     if (!isBaseApp) return;
 
-    const injectedConnector = connectors.find((connector) =>
-      connector.name.toLowerCase().includes("injected"),
+    const injectedConnector = connectors.find(
+      (connector) =>
+        availableConnectorIds.has(connector.uid) &&
+        connector.name.toLowerCase().includes("injected"),
     );
 
     if (injectedConnector) {
       connect({ connector: injectedConnector });
     }
-  }, [connect, connectors, isConnected]);
+  }, [availableConnectorIds, connect, connectors, isConnected]);
 
   if (isConnected) {
     return (
@@ -123,12 +176,25 @@ export function WalletButton() {
                 >
                   <span>{getConnectorLabel(connector.name)}</span>
                   <small>
-                    {connector.type === "coinbaseWallet"
+                    {isCoinbaseConnector(connector)
                       ? "External Coinbase Wallet"
                       : "Injected provider"}
                   </small>
                 </button>
               ))}
+              {!visibleConnectors.some(
+                (connector) => getConnectorLabel(connector.name) === "OKX Wallet",
+              ) ? (
+                <a
+                  className="wallet-option wallet-link"
+                  href="https://www.okx.com/web3"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span>OKX Wallet</span>
+                  <small>Open in OKX browser or install the wallet</small>
+                </a>
+              ) : null}
             </div>
 
             <p className="modal-note">
