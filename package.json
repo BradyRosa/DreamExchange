@@ -1,0 +1,30 @@
+{
+  "name": "dreamexchange",
+  "version": "0.1.0",
+  "private": true,
+  "description": "DreamExchange Base mini app",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.90.12",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.555.0",
+    "next": "^16.2.6",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
+    "viem": "^2.51.3",
+    "wagmi": "^3.6.16"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.0",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^9.39.1",
+    "eslint-config-next": "^16.2.6",
+    "typescript": "^5.9.3"
+  }
+}
