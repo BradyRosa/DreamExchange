@@ -18,7 +18,6 @@ import {
   useWriteContract,
 } from "wagmi";
 import { base } from "wagmi/chains";
-import { formatUnits } from "viem";
 import {
   DREAM_EXCHANGE_ADDRESS,
   dreamExchangeAbi,
@@ -266,23 +265,43 @@ export function DreamConsole({ mode }: { mode: Mode }) {
       </div>
 
       <section className="hero-grid">
-        <div className="hero-copy">
-          <p className="eyebrow">Onchain Dream Exchange</p>
+        <div className="visual-stage" aria-label="Mystic dream exchange artwork">
+          <img
+            src="/images/dreamexchange-hero.png"
+            alt=""
+            className="hero-art"
+            aria-hidden="true"
+          />
+          <div className="moon-disc" />
+          <div className="rune-ring">
+            <span>✦</span>
+            <span>☾</span>
+            <span>✧</span>
+            <span>◇</span>
+          </div>
+          <div className="dream-fragment fragment-a">
+            <Sparkles size={16} aria-hidden="true" />
+            <span>+1 Spark</span>
+          </div>
+          <div className="dream-fragment fragment-b">
+            <Moon size={16} aria-hidden="true" />
+            <span>{formatCount(dreamCount)} Dreams</span>
+          </div>
+          <div className="dream-fragment fragment-c">
+            <WandSparkles size={16} aria-hidden="true" />
+            <span>Fuse</span>
+          </div>
           <h1>DreamExchange</h1>
-          <p className="hero-text">
-            Record, recast, fuse and clear dreams on Base with no token purchase,
-            no daily limits and no platform fee. Each interaction leaves an
-            onchain trace and grants instant Dream Sparks.
-          </p>
+        </div>
+
+        <div className="action-dock">
           <div className="reward-strip" aria-live="polite">
             <div>
-              <small>Instant reward</small>
-              <strong className={rewardPulse ? "pulse" : ""}>
-                +1 Dream Spark
-              </strong>
+              <small>Now</small>
+              <strong className={rewardPulse ? "pulse" : ""}>+1 Spark</strong>
             </div>
             <div>
-              <small>Total sparks</small>
+              <small>Sparks</small>
               <strong>{formatCount(rewardTotal)}</strong>
             </div>
             <div>
@@ -290,80 +309,89 @@ export function DreamConsole({ mode }: { mode: Mode }) {
               <strong>{formatCount(dreamCount)}</strong>
             </div>
           </div>
-        </div>
 
-        <div className="oracle-panel">
-          {mode === "home" ? (
-            <form className="dream-form" onSubmit={createDream}>
-              <div className="form-head">
-                <WandSparkles size={20} aria-hidden="true" />
-                <h2>Record a dream</h2>
-              </div>
-              <label>
-                <span>Dream title</span>
-                <input
-                  value={title}
-                  onChange={(event) => setTitle(event.target.value)}
-                  maxLength={64}
-                  required
-                />
-              </label>
-              <label>
-                <span>Dream mood</span>
-                <input
-                  value={mood}
-                  onChange={(event) => setMood(event.target.value)}
-                  maxLength={32}
-                  required
-                />
-              </label>
-              <label>
-                <span>Dream memory</span>
-                <textarea
-                  value={description}
-                  onChange={(event) => setDescription(event.target.value)}
-                  maxLength={320}
-                  required
-                />
-              </label>
-              <div className="starter-row" aria-label="Starter dreams">
-                {starterDreams.map((dream, index) => (
-                  <button type="button" key={dream.title} onClick={() => fillStarter(index)}>
-                    {dream.mood}
+          <div className="oracle-panel">
+            {mode === "home" ? (
+              <form className="dream-form" onSubmit={createDream}>
+                <div className="form-head">
+                  <WandSparkles size={20} aria-hidden="true" />
+                  <h2>Record a dream</h2>
+                </div>
+                <div className="compact-fields">
+                  <label>
+                    <span>Title</span>
+                    <input
+                      value={title}
+                      onChange={(event) => setTitle(event.target.value)}
+                      maxLength={64}
+                      required
+                    />
+                  </label>
+                  <label>
+                    <span>Mood</span>
+                    <input
+                      value={mood}
+                      onChange={(event) => setMood(event.target.value)}
+                      maxLength={32}
+                      required
+                    />
+                  </label>
+                </div>
+                <label>
+                  <span>Memory</span>
+                  <textarea
+                    value={description}
+                    onChange={(event) => setDescription(event.target.value)}
+                    maxLength={320}
+                    required
+                  />
+                </label>
+                <div className="starter-row" aria-label="Starter dreams">
+                  {starterDreams.map((dream, index) => (
+                    <button type="button" key={dream.title} onClick={() => fillStarter(index)}>
+                      {dream.mood}
+                    </button>
+                  ))}
+                </div>
+                <button className="primary-action" type="submit" disabled={isPending}>
+                  <Sparkles size={18} aria-hidden="true" />
+                  <span>{isPending ? "Casting..." : "Cast Dream"}</span>
+                  <ArrowRight size={18} aria-hidden="true" />
+                </button>
+              </form>
+            ) : (
+              <div className="vault-actions">
+                <div className="form-head">
+                  <Layers3 size={20} aria-hidden="true" />
+                  <h2>Dream vault</h2>
+                </div>
+                <button className="primary-action" type="button" onClick={fuseFirstTwoDreams} disabled={isPending}>
+                  <FlameKindling size={18} aria-hidden="true" />
+                  <span>{isPending ? "Signing..." : "Fuse Dreams"}</span>
+                </button>
+                <div className="action-grid">
+                  <button type="button" onClick={editLatestDream} disabled={isPending}>
+                    Recast
                   </button>
-                ))}
+                  <button type="button" onClick={deleteLatestDream} disabled={isPending}>
+                    Clear
+                  </button>
+                  <button type="button" onClick={resetDreams} disabled={isPending}>
+                    Reset
+                  </button>
+                </div>
               </div>
-              <button className="primary-action" type="submit" disabled={isPending}>
-                <Sparkles size={18} aria-hidden="true" />
-                <span>{isPending ? "Casting..." : "Cast Dream"}</span>
-                <ArrowRight size={18} aria-hidden="true" />
-              </button>
-            </form>
-          ) : (
-            <div className="vault-actions">
-              <div className="form-head">
-                <Layers3 size={20} aria-hidden="true" />
-                <h2>Dream vault</h2>
-              </div>
-              <button className="primary-action" type="button" onClick={fuseFirstTwoDreams} disabled={isPending}>
-                <FlameKindling size={18} aria-hidden="true" />
-                <span>{isPending ? "Signing..." : "Fuse First Two Dreams"}</span>
-              </button>
-              <div className="action-grid">
-                <button type="button" onClick={editLatestDream} disabled={isPending}>
-                  Recast Latest
-                </button>
-                <button type="button" onClick={deleteLatestDream} disabled={isPending}>
-                  Clear Latest
-                </button>
-                <button type="button" onClick={resetDreams} disabled={isPending}>
-                  Reset Vault
-                </button>
-              </div>
-            </div>
-          )}
-          <p className="notice">{notice}</p>
+            )}
+            <p className="notice">{notice}</p>
+          </div>
         </div>
+      </section>
+
+      <section className="below-copy" aria-label="DreamExchange summary">
+        <p>
+          No token purchase. No daily limit. Gas only. Every cast, recast,
+          fusion and clear is written to your Base dream archive.
+        </p>
       </section>
 
       <section className="dream-ledger" aria-label="Dream archive">
