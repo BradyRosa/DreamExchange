@@ -137,3 +137,13 @@ After Base verification, replace both placeholders with the verified values and 
 ## Configuration Notes
 
 Before production deployment, review the Base attribution placeholders.
+
+Confirm that the app is configured for the intended Base mainnet environment.
+
+Check the Wagmi and Viem configuration before publishing any production build.
+
+Keep deployment settings aligned with the requirements of the Base mini app environment.
+
+## Usage
+
+Run the app locally with:
