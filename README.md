@@ -103,3 +103,11 @@ Key files and directories include:
 ```text
 app/
 ```
+
+Contains the Next.js App Router pages, layouts, and app-level UI.
+
+```text
+app/layout.tsx
+```
+
+Contains the Base offchain attribution metadata placeholder.
