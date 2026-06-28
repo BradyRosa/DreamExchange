@@ -32,3 +32,13 @@ It is intended to run as a Base mini app and includes placeholder configuration 
 - Prepared Base onchain attribution suffix configuration
 
 ## Stack
+
+- Next.js App Router
+- TypeScript
+- Wagmi
+- Viem
+- Base mainnet
+
+## Getting Started
+
+Clone the repository:
