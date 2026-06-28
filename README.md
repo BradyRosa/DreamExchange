@@ -16,3 +16,11 @@ The app is designed around four core actions:
 
 - Record a dream
 - Edit an existing dream record
+- Fuse dream records
+- Clear dream records
+
+It is intended to run as a Base mini app and includes placeholder configuration for Base attribution.
+
+## Features
+
+- Next.js App Router application structure
