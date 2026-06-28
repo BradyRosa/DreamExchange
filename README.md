@@ -42,3 +42,10 @@ It is intended to run as a Base mini app and includes placeholder configuration 
 ## Getting Started
 
 Clone the repository:
+
+```bash
+git clone https://github.com/BradyRosa/DreamExchange.git
+cd DreamExchange
+```
+
+Install dependencies:
