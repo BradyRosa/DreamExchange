@@ -67,3 +67,13 @@ For a standard Next.js setup, this is usually:
 ```text
 http://localhost:3000
 ```
+
+## Available Scripts
+
+Common scripts for a Next.js project may include:
+
+```bash
+npm run dev
+```
+
+Runs the app in development mode.
