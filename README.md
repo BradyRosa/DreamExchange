@@ -155,3 +155,11 @@ npm run dev
 Use the interface to create and manage dream records.
 
 The core app flow is centered on recording, editing, fusing, and clearing onchain dream data.
+
+## Deployment
+
+Build the project with:
+
+```bash
+npm run build
+```
