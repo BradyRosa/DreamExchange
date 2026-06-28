@@ -147,3 +147,11 @@ Keep deployment settings aligned with the requirements of the Base mini app envi
 ## Usage
 
 Run the app locally with:
+
+```bash
+npm run dev
+```
+
+Use the interface to create and manage dream records.
+
+The core app flow is centered on recording, editing, fusing, and clearing onchain dream data.
