@@ -111,3 +111,11 @@ app/layout.tsx
 ```
 
 Contains the Base offchain attribution metadata placeholder.
+
+```text
+lib/wagmi.ts
+```
+
+Contains Wagmi configuration and the prepared Base onchain attribution suffix placeholder.
+
+## Base Attribution Placeholders
