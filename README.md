@@ -119,3 +119,13 @@ lib/wagmi.ts
 Contains Wagmi configuration and the prepared Base onchain attribution suffix placeholder.
 
 ## Base Attribution Placeholders
+
+Base offchain attribution is currently hardcoded in `app/layout.tsx`:
+
+```html
+<meta name="base:app_id" content="" />
+```
+
+Base onchain attribution is prepared in `lib/wagmi.ts`:
+
+```ts
