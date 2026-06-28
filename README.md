@@ -1,27 +1,9 @@
 # DreamExchange
 
-DreamExchange is a Base mini app for recording, editing, fusing and clearing onchain dream records.
+DreamExchange is a Base mini app for recording, editing, fusing, and clearing onchain dream records.
 
-## Stack
+The project is built with Next.js and TypeScript, using Wagmi and Viem for Base mainnet connectivity.
 
-- Next.js App Router
-- TypeScript
-- Wagmi
-- Viem
-- Base mainnet
+## Repository
 
-## Attribution Placeholders
-
-Base offchain attribution is hardcoded in `app/layout.tsx`:
-
-```html
-<meta name="base:app_id" content="" />
-```
-
-Base onchain attribution is prepared in `lib/wagmi.ts`:
-
-```ts
-export const baseDataSuffix = "0x" as `0x${string}`;
-```
-
-After base.dev verification, replace both placeholders and redeploy.
+https://github.com/BradyRosa/DreamExchange.git
