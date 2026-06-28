@@ -93,3 +93,13 @@ Starts the production build locally.
 ```bash
 npm run lint
 ```
+
+Runs linting if configured in the project.
+
+## Project Structure
+
+Key files and directories include:
+
+```text
+app/
+```
