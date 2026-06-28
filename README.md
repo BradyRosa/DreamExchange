@@ -24,3 +24,11 @@ It is intended to run as a Base mini app and includes placeholder configuration 
 ## Features
 
 - Next.js App Router application structure
+- TypeScript-based codebase
+- Wagmi integration for wallet and chain interactions
+- Viem support for Ethereum-compatible operations
+- Base mainnet configuration
+- Prepared Base offchain attribution metadata
+- Prepared Base onchain attribution suffix configuration
+
+## Stack
