@@ -86,3 +86,10 @@ Builds the app for production.
 
 ```bash
 npm run start
+```
+
+Starts the production build locally.
+
+```bash
+npm run lint
+```
