@@ -129,3 +129,11 @@ Base offchain attribution is currently hardcoded in `app/layout.tsx`:
 Base onchain attribution is prepared in `lib/wagmi.ts`:
 
 ```ts
+export const baseDataSuffix = "0x" as `0x${string}`;
+```
+
+After Base verification, replace both placeholders with the verified values and redeploy the app.
+
+## Configuration Notes
+
+Before production deployment, review the Base attribution placeholders.
