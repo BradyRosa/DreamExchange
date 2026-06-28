@@ -163,3 +163,13 @@ Build the project with:
 ```bash
 npm run build
 ```
+
+Then deploy using the hosting provider or deployment workflow appropriate for a Next.js application.
+
+After replacing the Base attribution placeholders, redeploy so the updated metadata and configuration are included in the live build.
+
+## Notes
+
+This README reflects the current project information available in the repository description.
+
+Additional contract addresses, environment variables, deployment steps, or app-specific workflows should be documented here as they are added to the project.
